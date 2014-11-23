@@ -2,6 +2,9 @@ package com.richard;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Arrays;
+
+import com.richard.QuickSorter;
 
 /**
  * Hello world!
@@ -11,18 +14,26 @@ public class App
 {
     public static void main( String[] args )
     {
-        QuickSorter<int> sorter = new QuickSorter<int>();
-	int numbers[] = new int[10]();
-	for (int i = 0;i < 10; i++)
+	Integer numbers[] = new Integer[1000];
+	for (int i = 0;i < 1000; i++)
 	{
-	    numbers[i] = (10 - i);
+	    numbers[i] = (1000 - i);
 	}
+        QuickSorter<Integer> sorter = new QuickSorter<Integer>(numbers);
+	
 
-	sorter.sort(numbers);
-	System.out.println("Sorted numbers: " + numbers);
+	System.out.println("Beginning numbers: " + Arrays.toString(numbers));
+	sorter.sort();
+	System.out.println("Sorted numbers: " + Arrays.toString(numbers));
+	System.out.print("[ " + numbers[0]);
+	for (int i = 1;i < numbers.length; i++)
+	{
+	    System.out.print(" ," + numbers[i]);
+	}
+	System.out.println(" ]");
     }
 
-    public void BFSGraphSearch()
+/*    public void BFSGraphSearch()
     {
 	System.out.println( "Hello World!" );
         
@@ -48,5 +59,5 @@ public class App
         adjacencyList.put(c, reachableVertices);
         
     }
-
+*/
 }
