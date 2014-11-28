@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Arrays;
 
 import com.richard.QuickSorter;
+import com.richard.MergeSorter;
 
 /**
  * Hello world!
@@ -14,16 +15,34 @@ public class App
 {
     public static void main( String[] args )
     {
-	Integer numbers[] = new Integer[1000];
-	for (int i = 0;i < 1000; i++)
+	Integer numbers[] = new Integer[10];
+	for (int i = 0;i < 10; i++)
 	{
-	    numbers[i] = (1000 - i);
+	    numbers[i] = (10 - i);
 	}
         QuickSorter<Integer> sorter = new QuickSorter<Integer>(numbers);
 	
 
 	System.out.println("Beginning numbers: " + Arrays.toString(numbers));
 	sorter.sort();
+	System.out.println("Sorted numbers: " + Arrays.toString(numbers));
+	System.out.print("[ " + numbers[0]);
+	for (int i = 1;i < numbers.length; i++)
+	{
+	    System.out.print(" ," + numbers[i]);
+	}
+	System.out.println(" ]");
+
+	numbers = new Integer[10];
+	for (int i = 0;i < 10; i++)
+	{
+	    numbers[i] = (10 - i);
+	}
+        MergeSorter mergeSorter = new MergeSorter(numbers);
+	
+
+	System.out.println("Beginning numbers: " + Arrays.toString(numbers));
+	mergeSorter.sort();
 	System.out.println("Sorted numbers: " + Arrays.toString(numbers));
 	System.out.print("[ " + numbers[0]);
 	for (int i = 1;i < numbers.length; i++)

@@ -1,37 +1,34 @@
 package com.richard;
 
-public class MergeSorter<T extends Comparable<T>>
+public class MergeSorter
 {
-    private final T[] items;
+    private final Integer[] items;
 
-    public MergeSorter(T[] items)
+    public MergeSorter(Integer[] items)
     {
 	this.items = items;
     }
 
     public void sort()
     {
-	T[] sortedItems = mergesort(0, items.length - 1);
+	Integer[] sortedItems = mergesort(0, items.length - 1);
 	for(int i = 0; i < sortedItems.length; i++)
 	    items[i] = sortedItems[i];
     }
 
-    private T[] mergesort(int left, int right)
+    private Integer[] mergesort(int left, int right)
     {
-	if (left == right)
-	{
-	    return new T[] {items[left]};
-	}
-	if (left <= right)
+	if (left < right)
 	{
 	    int mid = (left + right) / 2;
-	    T[] leftSorted = mergesort(left, mid);
-	    T[] rightSorted = mergesort(mid + 1, right);
+	    Integer[] leftSorted = mergesort(left, mid);
+	    Integer[] rightSorted = mergesort(mid + 1, right);
 	    return merge(leftSorted, rightSorted);
 	}
+	return new Integer[] {items[left]};
     }
 
-    private T[] merge(T[] leftItems, T[] rightItems)
+    private Integer[] merge(Integer[] leftItems, Integer[] rightItems)
     {
 	if (leftItems == null)
 	    throw new IllegalArgumentException("leftItems cannot be null");
@@ -43,7 +40,7 @@ public class MergeSorter<T extends Comparable<T>>
 	if (rightItems.length == 0)
 	    return leftItems;
 	
-	T[] merged = new T[leftItems.length + rightItems.length];
+	Integer[] merged = new Integer[leftItems.length + rightItems.length];
 	int l = 0;
 	int r = 0;
 	int m = 0;
@@ -51,15 +48,17 @@ public class MergeSorter<T extends Comparable<T>>
 	{
 	    if (leftItems[l] < rightItems[r])
 	    {
-		l++;
 		merged[m] = leftItems[l];
+		l++;
+		m++;
 		continue;
 	    }
 
 	    if (rightItems[r] <= leftItems[l])
 	    {
-		r++;
 		merged[m] = rightItems[r];
+		r++;
+		m++;
 		continue;
 	    }
 	}
@@ -67,12 +66,18 @@ public class MergeSorter<T extends Comparable<T>>
 	if (r < rightItems.length)
 	{
 	    for (int i = r; i < rightItems.length; i++)
-		merged[i] = rightItems[i];
+	    {
+		merged[m] = rightItems[i];
+		m++;
+	    }
 	}
 	if (l < leftItems.length)
 	{
 	    for (int i = l; i < leftItems.length; i++)
-		merged[i] = leftItems[i];
+	    {
+		merged[m] = leftItems[i];
+		m++;
+	    }
 	}
 	return merged;
     }
