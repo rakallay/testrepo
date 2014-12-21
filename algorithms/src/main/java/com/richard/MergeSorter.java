@@ -1,34 +1,36 @@
 package com.richard;
 
-public class MergeSorter
+public class MergeSorter<T extends Comparable>
 {
-    private final Integer[] items;
+    private final T[] items;
 
-    public MergeSorter(Integer[] items)
+    public MergeSorter(T[] items)
     {
 	this.items = items;
     }
 
+    @SuppressWarnings("unchecked")
     public void sort()
     {
-	Integer[] sortedItems = mergesort(0, items.length - 1);
+	Object[] sortedItems = mergesort(0, items.length - 1);
 	for(int i = 0; i < sortedItems.length; i++)
-	    items[i] = sortedItems[i];
+	    items[i] = (T)sortedItems[i];
     }
 
-    private Integer[] mergesort(int left, int right)
+    private Object[] mergesort(int left, int right)
     {
 	if (left < right)
 	{
 	    int mid = (left + right) / 2;
-	    Integer[] leftSorted = mergesort(left, mid);
-	    Integer[] rightSorted = mergesort(mid + 1, right);
+	    Object[] leftSorted = mergesort(left, mid);
+	    Object[] rightSorted = mergesort(mid + 1, right);
 	    return merge(leftSorted, rightSorted);
 	}
-	return new Integer[] {items[left]};
+	return (Object[]) (new Object[]{items[left]});
     }
 
-    private Integer[] merge(Integer[] leftItems, Integer[] rightItems)
+    @SuppressWarnings("unchecked")
+    private Object[] merge(Object[] leftItems, Object[] rightItems)
     {
 	if (leftItems == null)
 	    throw new IllegalArgumentException("leftItems cannot be null");
@@ -40,13 +42,15 @@ public class MergeSorter
 	if (rightItems.length == 0)
 	    return leftItems;
 	
-	Integer[] merged = new Integer[leftItems.length + rightItems.length];
+	Object[] merged = new Object[leftItems.length + rightItems.length];
 	int l = 0;
 	int r = 0;
 	int m = 0;
 	while(l < leftItems.length && r < rightItems.length)
 	{
-	    if (leftItems[l] < rightItems[r])
+	    @SuppressWarnings ("unchecked") T leftElement = (T)leftItems[l];
+	    @SuppressWarnings ("unchecked") T rightElement = (T)rightItems[r];
+	    if (leftElement.compareTo(rightElement) < 0)
 	    {
 		merged[m] = leftItems[l];
 		l++;
@@ -54,7 +58,7 @@ public class MergeSorter
 		continue;
 	    }
 
-	    if (rightItems[r] <= leftItems[l])
+	    if (rightElement.compareTo(leftElement) <= 0)
 	    {
 		merged[m] = rightItems[r];
 		r++;

@@ -38,7 +38,7 @@ public class App
 	{
 	    numbers[i] = (10 - i);
 	}
-        MergeSorter mergeSorter = new MergeSorter(numbers);
+        MergeSorter<Integer> mergeSorter = new MergeSorter<Integer>(numbers);
 	
 
 	System.out.println("Beginning numbers: " + Arrays.toString(numbers));
