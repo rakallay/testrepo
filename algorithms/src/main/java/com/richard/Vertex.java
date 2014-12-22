@@ -42,13 +42,13 @@ public class Vertex {
 		this.predecessor = v;
 	}
 	
-	@Override @Override
+	@Override
 	public boolean equals(Object obj) {
 		// TODO Auto-generated method stub
 		return super.equals(obj);
 	}
 	
-	@Override @Override
+	@Override
 	public int hashCode() {
 		// TODO Auto-generated method stub
 		return super.hashCode();

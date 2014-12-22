@@ -15,25 +15,25 @@ public class App
 {
 	private enum SORT_ALGORITHM
 	{
-		QUICKSORT,
-		MERGESORT,
-		UNKNOWN;
-
-		public static SORT_ALGORITHM getAlgorithmFromString(String algStr)
+	    QUICKSORT,
+	    MERGESORT,
+	    UNKNOWN;
+	    
+	    public static SORT_ALGORITHM getAlgorithmFromString(String algStr)
+	    {
+		if ("mergesort".equalsIgnoreCase(algStr))
 		{
-			if ("mergesort".equalsIgnoreCase(algStr))
-			{
-				return MERGESORT;
-			}
-			else if ("quicksort".equalsIgnoreCase(algStr))
-			{
-				return QUICKSORT;
-			}
-			else
-			{
-				return UNKNOWN;
-			}
+		    return MERGESORT;
 		}
+		else if ("quicksort".equalsIgnoreCase(algStr))
+		{
+		    return QUICKSORT;
+		}
+		else
+		{
+		    return UNKNOWN;
+		}
+	    }
 	}
     
     private enum DATA_INIT_ORDER
@@ -68,33 +68,33 @@ public class App
     {
     	if (args.length != 3)
     	{
-    		printUsage();
-    		System.exit(1);
+	    printUsage();
+	    System.exit(1);
     	}
-
- 		String[] userSpecifiedAlgorithms = args[0].split(",");
- 		SORT_ALGORITHM[] sortAlgorithms = new SORT_ALGORITHM[userSpecifiedAlgorithms.length];
- 		for (int algIdx = 0; algIdx < userSpecifiedAlgorithms.length; algIdx++)
- 		{
- 			sortAlgorithms[algIdx] = SORT_ALGORITHM.getAlgorithmFromString(userSpecifiedAlgorithms[algIdx]);
- 			if (sortAlgorithms[algIdx] == SORT_ALGORITHM.UNKNOWN)
- 			{
- 				System.out.println("Unrecognized sorting algorithm specified: " + userSpecifiedAlgorithms[algIdx]);
- 				System.exit(1);
- 			}
- 		}
-
- 		int count = 0;
- 		try
- 		{
+	
+	String[] userSpecifiedAlgorithms = args[0].split(",");
+	SORT_ALGORITHM[] sortAlgorithms = new SORT_ALGORITHM[userSpecifiedAlgorithms.length];
+	for (int algIdx = 0; algIdx < userSpecifiedAlgorithms.length; algIdx++)
+	{
+	    sortAlgorithms[algIdx] = SORT_ALGORITHM.getAlgorithmFromString(userSpecifiedAlgorithms[algIdx]);
+	    if (sortAlgorithms[algIdx] == SORT_ALGORITHM.UNKNOWN)
+	    {
+		System.out.println("Unrecognized sorting algorithm specified: " + userSpecifiedAlgorithms[algIdx]);
+		System.exit(1);
+	    }
+	}
+	
+	int count = 0;
+	try
+	{
             count = Integer.valueOf(args[1]);
- 		}
- 		catch(NumberFormatException e)
- 		{
+	}
+	catch(NumberFormatException e)
+	{
             System.out.println("Invalid number count specified: " + args[1]);
             System.exit(1);
- 		}
-
+	}
+	
         DATA_INIT_ORDER order = DATA_INIT_ORDER.getDataInitOrderFromString(args[2]);
         if (order == DATA_INIT_ORDER.UNKNOWN)
         {
@@ -102,7 +102,7 @@ public class App
             printUsage();
             System.exit(1);
         }
-
+	
         for (SORT_ALGORITHM alg : sortAlgorithms)
         {
             Integer numbers[] = new Integer[count];
@@ -110,80 +110,80 @@ public class App
             
             switch(alg)
             {
-                case QUICKSORT:
-                {
-                    System.out.println("Running quicksort algorithm");
-                    QuickSorter<Integer> sorter = new QuickSorter<Integer>(numbers);
-                    //System.out.println("Beginning numbers: " + Arrays.toString(numbers));
-                    long startTime = System.currentTimeMillis();
-                    sorter.sort();
-                    long endTime = System.currentTimeMillis();
-                    if (!validateSorted(numbers))
-                    {
-                        System.exit(1);
-                    }
-                    //System.out.println("Sorted numbers: " + Arrays.toString(numbers));
-                    System.out.println("Total time(milliseconds): " + (endTime - startTime));
-                    break;
-                }
-                case MERGESORT:
-                {
-                    System.out.println("Running mergesort algorithm");
-                    MergeSorter<Integer> mergeSorter = new MergeSorter<Integer>(numbers);
-                    //System.out.println("Beginning numbers: " + Arrays.toString(numbers));
-                    long startTime = System.currentTimeMillis();
-                    mergeSorter.sort();
-                    long endTime = System.currentTimeMillis();
-                    if (!validateSorted(numbers))
-                    {
-                        System.exit(1);
-                    }
-                    //System.out.println("Sorted numbers: " + Arrays.toString(numbers));
-                    System.out.println("Total time(milliseconds): " + (endTime - startTime));
-                    break;
-                }            
+	    case QUICKSORT:
+	    {
+		System.out.println("Running quicksort algorithm");
+		QuickSorter<Integer> sorter = new QuickSorter<Integer>(numbers);
+		//System.out.println("Beginning numbers: " + Arrays.toString(numbers));
+		long startTime = System.currentTimeMillis();
+		sorter.sort();
+		long endTime = System.currentTimeMillis();
+		if (!validateSorted(numbers))
+		{
+		    System.exit(1);
+		}
+		//System.out.println("Sorted numbers: " + Arrays.toString(numbers));
+		System.out.println("Total time(milliseconds): " + (endTime - startTime));
+		break;
+	    }
+	    case MERGESORT:
+	    {
+		System.out.println("Running mergesort algorithm");
+		MergeSorter<Integer> mergeSorter = new MergeSorter<Integer>(numbers);
+		//System.out.println("Beginning numbers: " + Arrays.toString(numbers));
+		long startTime = System.currentTimeMillis();
+		mergeSorter.sort();
+		long endTime = System.currentTimeMillis();
+		if (!validateSorted(numbers))
+		{
+		    System.exit(1);
+		}
+		//System.out.println("Sorted numbers: " + Arrays.toString(numbers));
+		System.out.println("Total time(milliseconds): " + (endTime - startTime));
+		break;
+	    }            
             }    
         }
-	}
-
-	private static void printUsage()
-	{
-		System.out.println("Usage: App <algorithm>[,algorithm] <count> <data init order>");
+    }
+    
+    private static void printUsage()
+    {
+	System.out.println("Usage: App <algorithm>[,algorithm] <count> <data init order>");
     	System.out.println("algorithm: one or more sorting algorithms, comma separated.");
         System.out.println("           Possible values are: quicksort or mergesort.");
     	System.out.println("           Multiple algorithms can be specified, ex. \"quicksort,mergesort\"");
     	System.out.println("count: the number of numbers to sort");
         System.out.println("data init order: one of reverse, sorted, or random");
-	}
-
+    }
+    
     private static void initializeNumbers(Integer[] numbers, DATA_INIT_ORDER order)
     {
         switch(order)
         {
-            case REVERSE_SORTED:
-            {
-                for (int i = 0;i < numbers.length; i++)
-                {
-                    numbers[i] = (numbers.length - i);
-                }
-                break;
-            }
-            case SORTED:
-            {
-                for (int i = 0;i < numbers.length; i++)
-                {
-                    numbers[i] = i;
-                }
-                break;
-            }
-            case RANDOM:
-            {
-                for (int i = 0;i < numbers.length; i++)
-                {
-                    numbers[i] = (int)(Math.random() * numbers.length);
-                }
-                break;
-            }
+	case REVERSE_SORTED:
+	{
+	    for (int i = 0;i < numbers.length; i++)
+	    {
+		numbers[i] = (numbers.length - i);
+	    }
+	    break;
+	}
+	case SORTED:
+	{
+	    for (int i = 0;i < numbers.length; i++)
+	    {
+		numbers[i] = i;
+	    }
+	    break;
+	}
+	case RANDOM:
+	{
+	    for (int i = 0;i < numbers.length; i++)
+	    {
+		numbers[i] = (int)(Math.random() * numbers.length);
+	    }
+	    break;
+	}
         }
     }
     
@@ -199,9 +199,9 @@ public class App
         }
         return true;
     }
-
+    
 /*    public void BFSGraphSearch()
-    {
+      {
 	System.out.println( "Hello World!" );
         
         HashMap<Vertex, ArrayList<Vertex>> adjacencyList = new HashMap<Vertex, ArrayList<Vertex>>();

@@ -15,10 +15,10 @@ public class BFSGraphSearch {
 	
 	public Vertex analyze()
 	{
-		
+	    return null;
 	}
 	
-	public printGraphDistances()
+	public void printGraphDistances()
 	{
 		
 	}
