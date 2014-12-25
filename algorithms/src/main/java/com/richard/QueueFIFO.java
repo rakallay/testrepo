@@ -34,7 +34,9 @@ public class QueueFIFO<T>
 	else
 	{
 	    Node<T> newNode = new Node<T>(data);
-	    head = new Node<T>(head.getData(), newNode);
+	    //head = new Node<T>(head.getData(), newNode);
+	    head.setPrev(newNode);
+	    head = newNode;
 	}
     }
 
@@ -99,6 +101,11 @@ public class QueueFIFO<T>
 	public Node<U> getPrev()
 	{
 	    return prev;
+	}
+
+	public void setPrev(Node<U> prev)
+	{
+	    this.prev = prev;
 	}
     }
 

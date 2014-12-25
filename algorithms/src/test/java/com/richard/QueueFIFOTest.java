@@ -33,20 +33,21 @@ public class QueueFIFOTest
     }
 
     @Test
-    public void testOne() throws QueueEmptyException
-    {
-	QueueFIFO<Object> queue = new QueueFIFO<Object>();
-	Object obj = new Object();
-	queue.enqueue(obj);
-	assertTrue("Objects do not match.", obj == queue.dequeue());
-    }
-
-    @Test
     public void newQueueNoItems()
     {
 	QueueFIFO<Object> queue = new QueueFIFO<Object>();
 	Object obj = new Object();
 	assertFalse(queue.hasItems());
+    }
+
+    @Test
+    public void testEnqueueOne() throws QueueEmptyException
+    {
+	QueueFIFO<Object> queue = new QueueFIFO<Object>();
+	Object obj = new Object();
+	queue.enqueue(obj);
+	assertTrue(queue.hasItems());
+	assertTrue("Objects do not match.", obj == queue.dequeue());
     }
 
     @Test
@@ -57,6 +58,81 @@ public class QueueFIFOTest
 	queue.enqueue(obj);
 	assertTrue("Objects do not match.", obj == queue.dequeue());
 	assertFalse("hasItems returned true.", queue.hasItems());
+    }
+
+    @Test(expected = QueueEmptyException.class)
+    public void emptiedQueueOneItemDequeue() throws QueueEmptyException
+    {
+	QueueFIFO<Object> queue = new QueueFIFO<Object>();
+	Object obj = new Object();
+	queue.enqueue(obj);
+	queue.dequeue();
+	queue.dequeue();
+    }
+
+    @Test
+    public void enqueueDequeueTwo() throws QueueEmptyException
+    {
+	QueueFIFO<Object> queue = new QueueFIFO<Object>();
+	Object obj = new Object();
+	Object obj2 = new Object();
+	queue.enqueue(obj);
+	queue.enqueue(obj2);
+	Object retObj = queue.dequeue();
+	assertTrue(retObj == obj);
+	Object retObj2 = queue.dequeue();
+	assertTrue(retObj2 == obj2);
+	assertFalse(queue.hasItems());
+    }
+
+    @Test(expected = QueueEmptyException.class)
+    public void enqueueTwoDequeueThree_DequeueException() throws QueueEmptyException
+    {
+	QueueFIFO<Object> queue = new QueueFIFO<Object>();
+	Object obj = new Object();
+	Object obj2 = new Object();
+	queue.enqueue(obj);
+	queue.enqueue(obj2);
+	queue.dequeue();
+	queue.dequeue();
+	queue.dequeue();
+    }
+
+    @Test
+    public void enqueueDequeueThree() throws QueueEmptyException
+    {
+	// enqueue three items, then dequeue three and make sure right items returned
+	QueueFIFO<Object> queue = new QueueFIFO<Object>();
+	Object obj = new Object();
+	Object obj2 = new Object();
+	Object obj3 = new Object();
+	queue.enqueue(obj);
+	queue.enqueue(obj2);
+	queue.enqueue(obj3);
+	Object retObj = queue.dequeue();
+	assertTrue(retObj == obj);
+	Object retObj2 = queue.dequeue();
+	assertTrue(retObj2 == obj2);
+	Object retObj3 = queue.dequeue();
+	assertTrue(retObj3 == obj3);
+	assertFalse(queue.hasItems());
+    }
+
+    @Test(expected = QueueEmptyException.class)
+    public void enqueueThreeDequeueFourException() throws QueueEmptyException
+    {
+	// enqueue three items, then dequeue four and ensure exception thrown
+	QueueFIFO<Object> queue = new QueueFIFO<Object>();
+	Object obj = new Object();
+	Object obj2 = new Object();
+	Object obj3 = new Object();
+	queue.enqueue(obj);
+	queue.enqueue(obj2);
+	queue.enqueue(obj3);
+	queue.dequeue();
+	queue.dequeue();
+	queue.dequeue();
+	queue.dequeue();
     }
 
     //@Test
