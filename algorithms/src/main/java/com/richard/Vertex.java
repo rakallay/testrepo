@@ -75,4 +75,11 @@ public class Vertex {
 	result = result * 37 + (this.name == null ? 0 : this.name.hashCode());
 	return result;
     }
+
+    @Override
+    public String toString()
+    {
+	return "Name: " + name + ", color: " + color + ", distance: " + distance +
+	    ", predecessor: " + (predecessor == null ? "null" : predecessor.getName());
+    }
 }

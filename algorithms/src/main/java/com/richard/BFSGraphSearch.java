@@ -4,20 +4,35 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import com.richard.QueueFIFO;
 import com.richard.VertexColor;
+import java.util.List;
 
 public class BFSGraphSearch {
 
+    private List<Vertex> allVertices;
     private Vertex source;
     private HashMap<Vertex, ArrayList<Vertex>> adjacencyList;
     
-    public BFSGraphSearch(Vertex source, HashMap<Vertex, ArrayList<Vertex>> adjacencyList) {
+    public BFSGraphSearch(List<Vertex> allVertices, Vertex source, HashMap<Vertex, ArrayList<Vertex>> adjacencyList) {
 	this.source = source;
 	this.adjacencyList = adjacencyList;
+	this.allVertices = allVertices;
     }
     
     public Vertex analyze()
     {
+
+	for (Vertex v : allVertices)
+	{
+	    v.setColor(VertexColor.WHITE);
+	    v.setDistance(-1);
+	    v.setPredecessor(null);
+	}
+
 	QueueFIFO<Vertex> vertexQueue = new QueueFIFO<Vertex>();
+
+	source.setColor(VertexColor.GRAY);
+	source.setDistance(0);
+	source.setPredecessor(null);
 
 	// add the source vertex to the queue
 	vertexQueue.enqueue(source);
@@ -38,7 +53,10 @@ public class BFSGraphSearch {
 	    }
 	    //  go through all of the vertices adjacent to the vertex just popped off
 	    if (adjacencyList.get(v) == null)
+	    {
+		v.setColor(VertexColor.BLACK);
 		continue;
+	    }
 	    ArrayList<Vertex> vertexList = adjacencyList.get(v);
 	    for (Vertex adjcVertex : vertexList)
 	    {
@@ -51,20 +69,21 @@ public class BFSGraphSearch {
 		{
 		    adjcVertex.setColor(VertexColor.GRAY);
 		    adjcVertex.setDistance(v.getDistance() + 1);
+		    adjcVertex.setPredecessor(v);
 		    vertexQueue.enqueue(adjcVertex);
 		}
-		else
-		{
-		    adjcVertex.setColor(VertexColor.BLACK);
-		}
 	    }
+	    v.setColor(VertexColor.BLACK);
 	}
 	return null;
     }
     
     public void printGraphDistances()
     {
-	
+	for (Vertex v : allVertices)
+	{
+	    System.out.println ("Vertex: " + v.toString());
+	}
     }
 	
 }

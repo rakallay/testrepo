@@ -9,12 +9,12 @@ public class GraphSearcher
     
     public static void main(String[] args)
     {
+	GraphSearcher searcher = new GraphSearcher();
+	searcher.BFSGraphSearch();
     }
     
     public void BFSGraphSearch()
     {
-	System.out.println( "Hello World!" );
-        
         HashMap<Vertex, ArrayList<Vertex>> adjacencyList = new HashMap<Vertex, ArrayList<Vertex>>();
         
         Vertex a = new Vertex("a");
@@ -27,6 +27,8 @@ public class GraphSearcher
 	allVertices.add(a);
 	allVertices.add(b);
 	allVertices.add(c);
+	allVertices.add(d);
+	allVertices.add(e);
 
         ArrayList<Vertex> reachableVertices = new ArrayList<Vertex>();
         reachableVertices.add(b);
@@ -39,10 +41,17 @@ public class GraphSearcher
         
         reachableVertices = new ArrayList<Vertex>();
         reachableVertices.add(a);
+	reachableVertices.add(d);
         adjacencyList.put(c, reachableVertices);
 
-	BFSGraphSearch search = new BFSGraphSearch(a, adjacencyList);
+        reachableVertices = new ArrayList<Vertex>();
+        reachableVertices.add(e);
+        adjacencyList.put(d, reachableVertices);
+
+	BFSGraphSearch search = new BFSGraphSearch(allVertices, a, adjacencyList);
 	search.analyze();
+
+	search.printGraphDistances();
     }
 
 }
