@@ -22,7 +22,12 @@ public class GraphSearcher
         Vertex c = new Vertex("c");
         Vertex d = new Vertex("d");
         Vertex e = new Vertex("e");
-        
+
+	ArrayList<Vertex> allVertices = new ArrayList<Vertex>();
+	allVertices.add(a);
+	allVertices.add(b);
+	allVertices.add(c);
+
         ArrayList<Vertex> reachableVertices = new ArrayList<Vertex>();
         reachableVertices.add(b);
         reachableVertices.add(c);
@@ -37,7 +42,7 @@ public class GraphSearcher
         adjacencyList.put(c, reachableVertices);
 
 	BFSGraphSearch search = new BFSGraphSearch(a, adjacencyList);
-	
+	search.analyze();
     }
 
 }

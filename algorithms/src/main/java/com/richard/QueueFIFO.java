@@ -17,27 +17,18 @@ public class QueueFIFO<T>
     {
 	if (data == null)
 	    throw new NullPointerException("Data cannot be null");
+	Node<T> newNode = new Node<T>(data);
 	// first element
 	if (tail == null)
 	{
-	    Node<T> node = new Node<T>(data);
-	    head = node;
-	    tail = node;
+	    tail = newNode;
 	}
-	// one element
-	else if (head == tail)
-	{
-	    head = new Node<T>(data);
-	    tail = new Node<T>(tail.getData(), head);
-	}
-	// two or more elements
+	// one or more elements
 	else
 	{
-	    Node<T> newNode = new Node<T>(data);
-	    //head = new Node<T>(head.getData(), newNode);
 	    head.setPrev(newNode);
-	    head = newNode;
 	}
+	head = newNode;
     }
 
     public T dequeue() throws QueueEmptyException
@@ -51,12 +42,7 @@ public class QueueFIFO<T>
 	    head = null;
 	    tail = null;
 	}
-	// two items.
-	else if (tail.getPrev() == head) 
-	{
-	    tail = head;
-	}
-	// three or more items.  Just move tail up one
+	// two or more items.  Just move tail up one
 	else
 	{
 	    tail = tail.getPrev();
