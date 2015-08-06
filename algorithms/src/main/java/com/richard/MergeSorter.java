@@ -52,35 +52,35 @@ public class MergeSorter<T extends Comparable>
             @SuppressWarnings ("unchecked") T rightElement = (T)rightItems[r];
             if (leftElement.compareTo(rightElement) < 0)
             {
-            merged[m] = leftItems[l];
-            l++;
-            m++;
-            continue;
+		merged[m] = leftItems[l];
+		l++;
+		m++;
+		continue;
             }
-
+	    
             if (rightElement.compareTo(leftElement) <= 0)
             {
-            merged[m] = rightItems[r];
-            r++;
-            m++;
-            continue;
+		merged[m] = rightItems[r];
+		r++;
+		m++;
+		continue;
             }
         }
-
+	
         if (r < rightItems.length)
         {
             for (int i = r; i < rightItems.length; i++)
             {
-            merged[m] = rightItems[i];
-            m++;
+		merged[m] = rightItems[i];
+		m++;
             }
         }
         if (l < leftItems.length)
         {
             for (int i = l; i < leftItems.length; i++)
             {
-            merged[m] = leftItems[i];
-            m++;
+		merged[m] = leftItems[i];
+		m++;
             }
         }
         return merged;

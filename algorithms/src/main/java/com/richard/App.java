@@ -199,32 +199,4 @@ public class App
         }
         return true;
     }
-    
-/*    public void BFSGraphSearch()
-      {
-	System.out.println( "Hello World!" );
-        
-        HashMap<Vertex, ArrayList<Vertex>> adjacencyList = new HashMap<Vertex, ArrayList<Vertex>>();
-        
-        Vertex a = new Vertex("a");
-        Vertex b = new Vertex("b");
-        Vertex c = new Vertex("c");
-        Vertex d = new Vertex("d");
-        Vertex e = new Vertex("e");
-        
-        ArrayList<Vertex>.reachableVertices = null;
-        reachableVertices.add(b);
-        reachableVertices.add(c);
-        adjacencyList.put(a, reachableVertices);
-        
-        reachableVertices = new ArrayList<Vertex>();
-        reachableVertices.add(c);
-        adjacencyList.put(b, reachableVertices);
-        
-        reachableVertices = new ArrayList<Vertex>();
-        reachableVertices.add(a);
-        adjacencyList.put(c, reachableVertices);
-        
-    }
-*/
 }
