@@ -180,7 +180,7 @@ public class App
 	{
 	    for (int i = 0;i < numbers.length; i++)
 	    {
-		numbers[i] = (int)(Math.random() * numbers.length);
+		numbers[i] = (int)(Math.random() * (numbers.length * numbers.length));
 	    }
 	    break;
 	}

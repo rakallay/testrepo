@@ -6,7 +6,6 @@ public class Queue<T>
     private Node<T> last;
     private Node<T> first;
 
-
     public Queue()
     {
     }
@@ -15,11 +14,11 @@ public class Queue<T>
     {
 	if (last == null)
 	{
-	    last = new Node(T data);
+	    last = new Node<T>(data);
 	    first = last;
 	    return;
 	}
-	Node<T> newNode = new Node(T data);
+	Node<T> newNode = new Node<T>(data);
 	last.setNext(newNode);
 	last = newNode;
     }
@@ -32,6 +31,7 @@ public class Queue<T>
 	first = first.getNext();
 	if (first == null)
 	    last = null;
+	return data;
     }
 
     private static class Node<T>
